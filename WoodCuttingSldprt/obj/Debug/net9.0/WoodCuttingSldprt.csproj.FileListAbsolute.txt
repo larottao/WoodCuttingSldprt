@@ -16,3 +16,4 @@ C:\Repositorios\WoodCuttingSldprt\WoodCuttingSldprt\obj\Debug\net9.0\refint\Wood
 C:\Repositorios\WoodCuttingSldprt\WoodCuttingSldprt\obj\Debug\net9.0\WoodCuttingSldprt.pdb
 C:\Repositorios\WoodCuttingSldprt\WoodCuttingSldprt\obj\Debug\net9.0\WoodCuttingSldprt.genruntimeconfig.cache
 C:\Repositorios\WoodCuttingSldprt\WoodCuttingSldprt\obj\Debug\net9.0\ref\WoodCuttingSldprt.dll
+C:\Repositorios\WoodCuttingSldprt\WoodCuttingSldprt\obj\Debug\net9.0\WoodCuttingSldprt.sourcelink.json

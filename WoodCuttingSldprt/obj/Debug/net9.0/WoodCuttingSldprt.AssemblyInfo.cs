@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WoodCuttingSldprt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6ccc47c334aafe18392e11d7edc4df75af11286")]
 [assembly: System.Reflection.AssemblyProductAttribute("WoodCuttingSldprt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WoodCuttingSldprt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

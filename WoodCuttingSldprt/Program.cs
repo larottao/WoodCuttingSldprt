@@ -3,6 +3,7 @@ using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using WoodCuttingSldprt.Models;
 
 if (!File.Exists("C:\\Program Files\\SOLIDWORKS Corp\\SOLIDWORKS\\SolidWorks.Interop.sldworks.dll"))
 {
@@ -20,34 +21,28 @@ SldWorks swApp = new SldWorks();
 ModelDoc2 model = swApp.OpenDoc6(@"C:\Users\User\Desktop\workbench\workbench.SLDPRT",
     (int)swDocumentTypes_e.swDocPART,
     (int)swOpenDocOptions_e.swOpenDocOptions_Silent, "", 0, 0);
-
 PartDoc part = (PartDoc)model;
-object[] bodies = (object[])part.GetBodies2((int)swBodyType_e.swSolidBody, true);
 
-List<double> lengths = new List<double>();
+List<SolidBody> bodiesList = ((object[])part.GetBodies2((int)swBodyType_e.swSolidBody, true))
+    .Cast<Body2>()
+    .Select(b => new SolidBody(b))
+    .ToList();
 
-foreach (Body2 body in bodies)
+bodiesList = bodiesList.OrderByDescending(b => b.longestAxis).ToList();
+
+foreach (SolidBody body in bodiesList)
 {
-    double[] box = (double[])body.GetBodyBox(); // {xmin, ymin, zmin, xmax, ymax, zmax}
-
-    double lx = (box[3] - box[0]) * 100.0; // cm
-    double ly = (box[4] - box[1]) * 100.0; // cm
-    double lz = (box[5] - box[2]) * 100.0; // cm
-
-    double longest = Math.Max(lx, Math.Max(ly, lz));
-
-    Console.WriteLine($"Body name: [{body.Name}] X:[{lx:F2} cm] Y:[{ly:F2} cm] Z:[{lz:F2} cm] Longest: {Math.Round(longest, 3)} cm");
-
-    lengths.Add(longest);
+    Console.WriteLine($"Body name: [{body.Name}] X:[{body.xCm:F2} cm] Y:[{body.yCm:F2} cm] Z:[{body.zCm:F2} cm] Longest: {body.longestAxis:F3} cm");
 }
 
-OptimizeCuts(lengths, 244, 0.2);
-static void OptimizeCuts(List<double> lengths, double stockLength, double kerf)
+OptimizeCuts(bodiesList, 244, 0.2);
+static void OptimizeCuts(List<SolidBody> bodiesList, double stockLength, double kerf)
 {
-    lengths.Sort((a, b) => b.CompareTo(a)); // largest to smallest
+    bodiesList = bodiesList.OrderByDescending(b => b.longestAxis).ToList();
+
     List<List<double>> boards = new List<List<double>>();
 
-    foreach (var piece in lengths)
+    foreach (SolidBody body in bodiesList)
     {
         int bestIndex = -1;
         double minWaste = double.MaxValue;
@@ -59,20 +54,20 @@ static void OptimizeCuts(List<double> lengths, double stockLength, double kerf)
             double totalUsed = used + cuts * kerf;
             double remaining = stockLength - totalUsed;
 
-            if (piece <= remaining && remaining - piece < minWaste)
+            if (body.longestAxis <= remaining && remaining - body.longestAxis < minWaste)
             {
                 bestIndex = i;
-                minWaste = remaining - piece;
+                minWaste = remaining - body.longestAxis;
             }
         }
 
         if (bestIndex == -1)
         {
-            boards.Add(new List<double> { piece }); // new board
+            boards.Add(new List<double> { body.longestAxis }); // new board
         }
         else
         {
-            boards[bestIndex].Add(piece);
+            boards[bestIndex].Add(body.longestAxis);
         }
     }
 
