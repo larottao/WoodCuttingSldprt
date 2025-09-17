@@ -1,0 +1,53 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "WoodCuttingSldprt/1.0.0": {
+        "dependencies": {
+          "SolidWorks.Interop.sldworks": "25.5.0.83",
+          "SolidWorks.Interop.swconst": "25.5.0.83"
+        },
+        "runtime": {
+          "WoodCuttingSldprt.dll": {}
+        }
+      },
+      "SolidWorks.Interop.sldworks/25.5.0.83": {
+        "runtime": {
+          "SolidWorks.Interop.sldworks.dll": {
+            "assemblyVersion": "25.5.0.83",
+            "fileVersion": "25.5.0.83"
+          }
+        }
+      },
+      "SolidWorks.Interop.swconst/25.5.0.83": {
+        "runtime": {
+          "SolidWorks.Interop.swconst.dll": {
+            "assemblyVersion": "25.5.0.83",
+            "fileVersion": "25.5.0.83"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WoodCuttingSldprt/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SolidWorks.Interop.sldworks/25.5.0.83": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SolidWorks.Interop.swconst/25.5.0.83": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
